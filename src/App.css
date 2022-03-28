@@ -1,0 +1,135 @@
+body {
+    text-align: center;
+    font-family: Consolas, monospace;
+    color: whitesmoke;
+    background: #1a1a1a;
+    font-size: 1.2rem;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #18b6ff;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.color-primary {
+    color: #b462ff;
+}
+
+.color-secondary {
+    color: #979797;
+}
+
+.color-danger {
+    color: #ff45b4;
+}
+
+button {
+    font-family: Consolas, monospace;
+    font-size: 1.2rem;
+    border: none;
+    color: #1beb9e;
+    background: transparent;
+    padding: .34rem .4rem;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #1beb9e;
+    color: whitesmoke;
+}
+
+button::before {
+    content: "[";
+}
+
+button::after {
+    content: "]";
+}
+
+button:active {
+    background-color: #14cc88;
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+input {
+    display: block;
+    width: 100%;
+    font-family: Consolas, monospace;
+    font-size: 1.2rem;
+    color: #ff9528;
+    background: transparent;
+    padding: .15rem .4rem;
+    border: 3px solid gray;
+    outline: none;
+}
+
+input:focus {
+    border: 3px solid #ff9528;
+}
+
+hr {
+    border-top: 3px solid #898989;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+}
+
+.border-main {
+    display: inline-block;
+    border: 3px solid #898989;
+    width: 50%;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.border-secondary {
+    display: inline-block;
+    border: 3px solid #898989;
+    width: 50%;
+    padding: 5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.message {
+/*    float on the left*/
+    text-align: left;
+}
+
+a{
+    color: #18b6ff;
+}
