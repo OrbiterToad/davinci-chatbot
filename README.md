@@ -75,11 +75,11 @@ AI:${responseFromTheAI}
 Wrapping that all up into a nice React Application and the Bot is ready to go! Below I have some examples.
 
 
-![test1](https://i.imgur.com/8DMtllb.png)
-![test2](https://i.imgur.com/N2E4x6N.png)
+![image](https://user-images.githubusercontent.com/25004579/173056107-5c5475dc-68b0-4f83-87df-62b4fbbf0cda.png)
+![image](https://user-images.githubusercontent.com/25004579/173056430-a7af03d5-88a6-4a79-9d79-55b0da3e0e07.png)
 
 The Chatbot is hosted on Netlify and the source code is available on [Github](https://github.com/Wetwer/davinci-chatbot)
 
-[Chatbot on Netlify](https://musical-dodol-0cff4a.netlify.app/)
+[Chatbot on Netlify](https://text-davinci.netlify)
 
 Have fun, and I hope will find it useful in maybe finding your next Project Idea!
