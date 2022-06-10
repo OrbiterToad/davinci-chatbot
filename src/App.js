@@ -1,15 +1,14 @@
-import './App.css'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Configuration, OpenAIApi} from 'openai'
+import {AsideSection} from './navigation/AsideSection'
+import {Loader} from './Loader'
+import {SettingsSection} from './chat/SettingsSection'
+import {fillStringLength} from './__helper__/text-helper'
+import {MainContent} from './chat/ChatSection'
 
 function defaultConversation(aiName, attributes) {
-  return `\n
-    The following is a conversation with an AI. The AI is ${attributes}.
-    \n
-    Human:Hello
-    \n
-    ${aiName}:Hi, I am an AI. Whats your question?
-    \n`
+  return `The following is a conversation with an AI called ${aiName}.
+The AI is ${attributes}.\n\n`
 }
 
 function getEngineId() {
@@ -17,9 +16,13 @@ function getEngineId() {
 }
 
 function App() {
-
   const [aiName, setAiName] = useState('ai')
+  const [tempAiName, setTempAiName] = useState('ai')
   const [attributes, setAttributes] = useState('clever and helpful')
+  const [tempAttributes, setTempAttributes] = useState('clever and helpful')
+  const [apiKey, setApiKey] = useState(localStorage.getItem('apiKey') || '')
+  const [tempApiKey, setTempApiKey] = useState(localStorage.getItem('apiKey') || '')
+
   const [loading, setLoading] = useState(false)
 
   const [errorMessage, setErrorMessage] = useState(null)
@@ -29,19 +32,16 @@ function App() {
   const [conversation, setConversation] = useState(defaultConversation(aiName, attributes))
 
   const [question, setQuestion] = useState('')
-  const [apiKey, setApiKey] = useState('')
 
   const [conversationHistory, setConversationHistory] = useState([])
 
 
   function getPrompt(question) {
-    return `${conversation}Human:${question}
-    \n
+    return `${conversation}Human:${question}\n
     ${aiName}:`
   }
 
   const askQuestion = (question) => {
-
     const configuration = new Configuration({apiKey})
     const openai = new OpenAIApi(configuration)
 
@@ -72,12 +72,37 @@ function App() {
   function resetConversation() {
     setConversation(defaultConversation(aiName, attributes))
     setConversationHistory([])
+    setErrorMessage(null)
   }
 
+  function saveConversationSettings(e) {
+    e.preventDefault()
+    setConversationHistory([])
+    setAiName(tempAiName)
+    setAttributes(tempAttributes)
+    setApiKey(tempApiKey)
+    // save api key to local storage if it is not empty and not already saved
+    if (tempApiKey && tempApiKey !== '' && localStorage.getItem('apiKey') !== tempApiKey) {
+      localStorage.setItem('apiKey', tempApiKey)
+    }
+
+    setErrorMessage(null)
+  }
+
+  useEffect(() => {
+    setConversation(defaultConversation(aiName, attributes))
+  }, [aiName, attributes])
+
   function poseQuestion(e) {
+    if (loading) {
+      return
+    }
     e.preventDefault()
 
-    if (question === '') {
+    if (apiKey === '') {
+      setErrorMessage('Please enter an API key')
+      return
+    } else if (question === '') {
       setErrorMessage('Please enter a question!')
       return
     } else {
@@ -96,7 +121,6 @@ function App() {
       ])
     }).catch((e) => {
       setLoading(false)
-      setQuestion('')
       setConversationHistory([
         ...conversationHistory,
         {from: 'Human', text: question, color: 'secondary'},
@@ -106,114 +130,63 @@ function App() {
     })
   }
 
-  return (
-    <div className="App">
-      <center>
-        <h1>{getEngineId()}</h1>
-        <table>
-          <tbody>
-          <tr>
-            <td>
-              AI Name
-            </td>
-            <td width={'400px'}>
-              <input type={'text'} value={aiName} onChange={(e) => setAiName(e.target.value)}/>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Attributes
-            </td>
-            <td>
-              <input type={'text'} value={attributes} onChange={(e) => setAttributes(e.target.value)}/>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              API Key
-            </td>
-            <td>
-              <input type={'text'} value={apiKey} onChange={(e) => setApiKey(e.target.value)}/>
-            </td>
-          </tr>
-          {apiKey === '' && <tr>
-            <td colSpan={2} className={'color-danger'}>
-                Get your API key from <a target={'_blank'} href={'https://beta.openai.com/'}>https://beta.openai.com</a>
-            </td>
-          </tr>}
-          <tr>
-            <td>
-              <button  onClick={resetConversation}>Save</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        {/*save the aiName and reset conversation and conversationHistory*/}
+  return <div className="full h-min-screen">
+    <div className="flex row wrap">
+      <SettingsSection tempAiName={tempAiName}
+                       aiName={aiName}
+                       tempAttributes={tempAttributes}
+                       attributes={attributes}
+                       apiKey={apiKey}
+                       onChangeAiName={(e) => setTempAiName(e.target.value)}
+                       onChangeAttributes={(e) => setTempAttributes(e.target.value)}
+                       tmpApiKey={tempApiKey}
+                       onChangeApiKey={(e) => setTempApiKey(e.target.value)}
+                       saveSettings={saveConversationSettings}
+                       resetConversation={resetConversation}/>
+      <section id="content" className="full md:half lg:screen-v-scroll flex row wrap relative">
+        <div className="full md:py px">
+          <center>
+            <span className="large title white">davinci-chatbot</span>
+          </center>
+          <br/>
+          <br/>
+          <MainContent showConversationDebug={showConversationDebug}
+                       conversationHistory={conversationHistory}
+                       conversation={conversation}
+                       loading={loading}
+                       apiKey={apiKey}
+                       aiName={aiName}/>
+          {loading ? <>
+              Human: <span className={'blue'}>
+              {fillStringLength('Human', aiName)}
+              {question}
+            </span>
+              <center>
+                <Loader/>
+              </center>
+            </>
+            : <>
+              <br/>
+              <br/>
+            </>}
 
-        <div className={'border-main'}>
-          {conversationHistory.length > 0 ? <>
-            {/*if message is from human show on the left else show msg on the right with danger:red primary: blue secondary: gray*/}
+          <br/>
 
-            {conversationHistory.map((msg, index) => {
-              return (
-                <div key={index} className={'message'}>
-                  {msg.from === 'Human' ?
-                    <div className={'message-left'}>
-                      <div className={'message-text'}>Me: <span className={`color-${msg.color}`}>{msg.text}</span></div>
-                    </div> :
-                    <div className={'message-right'}>
-                      <div className={'message-text'}>
-                        {aiName}: <span className={`color-${msg.color}`}>{msg.text}</span>
-                      </div>
-                    </div>
-                  }
-                </div>
-              )
-            })}
-          </> : <>{loading ? <div>Loading...</div> : <p>Type a question and the bot will respond</p>}</>}
+          <form onSubmit={poseQuestion}>
+            <input type="text"
+                   value={question}
+                   placeholder={'Ask a question...'}
+                   spellCheck={false}
+                   onChange={(e) => setQuestion(e.target.value)}/>
+            {errorMessage && <span className={'fuschia'}>{errorMessage}</span>}
+          </form>
         </div>
-        <form onSubmit={poseQuestion}>
-          <table>
-            <tbody>
-            <tr>
-              <td width={'400px'}>
-                <input type={'text'} value={question} placeholder={'Ask a question...'}
-                       onChange={(e) => setQuestion(e.target.value)}/>
-              </td>
-              <td style={{paddingLeft: '1rem'}}>
-                <button type={'submit'}>{
-                  loading ? 'Loading...' : 'Ask'
-                }</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                {errorMessage && <p className={'color-danger'}>{errorMessage}</p>}
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </form>
-
-        <br/>
-        {/*  button to show the conversation */}
-        <button onClick={() => {
-          setShowConversationDebug(!showConversationDebug)
-        }}>
-          {showConversationDebug ? 'Hide conversation' : 'Show conversation'}
-        </button>
-        <br/>
-
-        {/*  show the conversation */}
-        {showConversationDebug && <div className={'border-secondary'}>
-          <pre className={'conversation-debug message'}>
-            {conversation}
-          </pre>
-        </div>}
-
-      </center>
+      </section>
+      <AsideSection showConversationDebug={showConversationDebug}
+                    setShowConversationDebug={setShowConversationDebug}/>
     </div>
-  )
+  </div>
 }
+
 
 export default App
