@@ -6,10 +6,14 @@ general.
 
 I was always really interested in how the whole AI Suggestion works and how it could be used in my own projects.
 
-![test](https://copilot.github.com/diagram.png)
+![image](https://user-images.githubusercontent.com/25004579/198204346-94e6b39f-cddf-4ace-8b73-5df797ef3988.png)
 
 While looking into it, I came across the [Open-AI Playground](https://beta.openai.com/examples/default-text-to-command),
 a playground for Open-AI's text-davinci-002 model.
+
+Just for understanding sake:
+- code-davinci (Used in GH Copilot) -> generates code
+- text-davinci (What I am going to be using) -> generates text / whole sentences
 
 ### What is Open-AI's text-davinci-002 API?
 
@@ -65,9 +69,9 @@ const promt = `${conversation}Human:${question}
 
 Here we just want want the AI has to say, like:
 
-```json
-Human:Hello, who are you?
-AI:${responseFromTheAI}
+```
+Human: Hello, who are you?
+AI:    ${responseFromTheAI}
 ```
 
 ### The Final Bot
