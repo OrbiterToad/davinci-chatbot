@@ -1,3 +1,5 @@
+#### This is a blogpost originaly posted to dev.to [link to article](https://dev.to/sunflowertoadtheorbiter/creating-a-simple-but-intelligent-chatbot-with-open-ai-3kph)
+
 # Creating a ChatBot with Open-AIs text-davinci-002
 
 So I have been using GitHub copilot for a while now. GitHub Copilot is a Plugin for VSCode/JB IDEs/NVIM that provides
