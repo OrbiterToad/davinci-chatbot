@@ -8,7 +8,7 @@ general.
 
 I was always really interested in how the whole AI Suggestion works and how it could be used in my own projects.
 
-![image](https://user-images.githubusercontent.com/25004579/198204346-94e6b39f-cddf-4ace-8b73-5df797ef3988.png)
+![copilot](https://user-images.githubusercontent.com/25004579/215088064-13e8f839-2958-476c-a0e6-63672aef8eaa.PNG)
 
 While looking into it, I came across the [Open-AI Playground](https://beta.openai.com/examples/default-text-to-command),
 a playground for Open-AI's text-davinci-002 model.
