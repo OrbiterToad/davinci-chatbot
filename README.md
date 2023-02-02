@@ -42,6 +42,9 @@ const response = await openai.createCompletion("text-davinci-002", {
 });
 ```
 
+> Little tip: I would recommend using text-davinci-002 instead of 003. Even thou answers are slightly simpler, there is no swearing-filter in 002 or anything else alike. 003 always backpedals when hearing a bad word and tries to moraly reprimand you.
+
+
 ### Creating the ChatBot
 
 So I decided to create a ChatBot that can be used to interact with the AI. Developing with GitHubs Copilot I already
