@@ -144,7 +144,7 @@ hr {
     margin: 2rem 0;
 }
 
-input, textarea {
+input, textarea, select {
     border: none;
     background: #282727;
     color: var(--c-white);
@@ -158,17 +158,17 @@ input, textarea {
     border-radius: .2rem;
 }
 
-input:hover, textarea:hover {
+input:hover, textarea:hover, select:hover {
     background: #312e37;
 }
 
 /*same on focus*/
-input:focus, textarea:focus {
+input:focus, textarea:focus, select:focus {
     background: #312e37;
 }
 
 /*and active*/
-input:active, textarea:active {
+input:active, textarea:active, select:active {
     background: #312e37;
 }
 
@@ -226,11 +226,6 @@ body {
         font-size: 1.11111111vw;
         overflow: hidden;
     }
-}
-
-::selection {
-    color: #000000;
-    background: var(--c-grey);
 }
 
 button {
@@ -525,4 +520,9 @@ body.invert canvas {
 
 .loader {
     letter-spacing: 6px;
+}
+
+.message-text {
+    display: block;
+    margin-bottom: .5rem;
 }
