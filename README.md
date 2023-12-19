@@ -1,3 +1,5 @@
+> ⚠️ text-davinci-002 will be defunct after january 4th 2024 
+
 #### This is a blogpost originaly posted to dev.to [link to article](https://dev.to/sunflowertoadtheorbiter/creating-a-simple-but-intelligent-chatbot-with-open-ai-3kph)
 
 # Creating a ChatBot with Open-AIs text-davinci-002
