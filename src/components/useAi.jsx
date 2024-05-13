@@ -60,6 +60,8 @@ export const useAI = (initialPersonality, engineId, apiKey) => {
         );
 
         const data = await response.json();
+        console.log(data)
+
         const text = data.choices[0].text;
 
         if (text && text.length > 0) {

@@ -4,10 +4,12 @@ import {Loader} from './Loader'
 import {SettingsSection} from './chat/SettingsSection'
 import {MainContent} from './chat/ChatSection'
 import {Sender, useAI} from "./components/useAi";
+import {Engine} from "./__helper__/engine-helper";
 
 function App() {
 
     const [apiKey, setApiKey] = useState(localStorage.getItem('apiKey') || '')
+    const [engineId, setEngineId] = useState(Engine.DAVINCI_002)
 
     const {
         question,
@@ -17,15 +19,14 @@ function App() {
         aiPersonality,
         setPersonality,
         isLoading,
-        resetConversation
-    } = useAI(Sender.AI, 'text-davinci-002', apiKey);
+        resetConversation,
+    } = useAI(Sender.AI, engineId, apiKey);
 
     const [errorMessage, setErrorMessage] = useState(null)
 
     const [showConversationDebug, setShowConversationDebug] = useState(false)
 
     function poseQuestion(e) {
-        console.log('0')
         e.preventDefault()
         if (isLoading) {
             return
@@ -50,7 +51,10 @@ function App() {
                              setPersonality={setPersonality}
                              apiKey={apiKey}
                              setApiKey={setApiKey}
-                             resetConversation={resetConversation}/>
+                             resetConversation={resetConversation}
+                             engineId={engineId}
+                                setEngineId={setEngineId}
+            />
             <section id="content" className="full md:half lg:screen-v-scroll flex row wrap relative">
                 <div className="full md:py px">
                     <center>
