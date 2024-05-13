@@ -1,5 +1,6 @@
 > ⚠️ text-davinci-002 will be defunct after january 4th 2024 
-> Replaced by text-davinci-003
+
+> Replaced by davinci-002 (slightly worse... but still good)
 
 #### This is a blogpost originaly posted to dev.to [link to article](https://dev.to/sunflowertoadtheorbiter/creating-a-simple-but-intelligent-chatbot-with-open-ai-3kph)
 

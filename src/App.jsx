@@ -65,6 +65,7 @@ function App() {
 
                     <MainContent showConversationDebug={showConversationDebug}
                                  conversationHistory={conversationHistory}
+                                 setShowConversationDebug={setShowConversationDebug}
                                  loading={isLoading}
                                  apiKey={apiKey}
                                  aiName={aiPersonality}/>
