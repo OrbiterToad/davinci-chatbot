@@ -93,6 +93,6 @@ Wrapping that all up into a nice React Application and the Bot is ready to go! B
 
 The Chatbot is hosted on Netlify and the source code is available on [Github](https://github.com/Wetwer/davinci-chatbot)
 
-[Chatbot on Netlify](https://text-davinci.netlify.com)
+[Chatbot on Netlify](https://text-davinci.netlify.app/)
 
 Have fun, and I hope will find it useful in maybe finding your next Project Idea!
