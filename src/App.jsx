@@ -9,7 +9,7 @@ import {Engine} from "./__helper__/engine-helper";
 function App() {
 
     const [apiKey, setApiKey] = useState(localStorage.getItem('apiKey') || '')
-    const [engineId, setEngineId] = useState(Engine.DAVINCI_002)
+    const [engineId, setEngineId] = useState(Engine.GPT_35_TURBO_INSTRUCT)
 
     const {
         question,
